@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to Lion Auction</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #F5F5F5;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 3rem;
+        color: #333333;
+      }
+      h2 {
+        font-size: 3rem;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        color: #333333;
+        text-align: center;
+      }
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        color: #333333;
+      }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333333;
+      }
+      li {
+        float: left;
+      }
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      li a:hover {
+        background-color: #005CA9;
+      }
+      .welcome-box {
+        background-color: #FFFFFF;
+        padding: 40px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 800px;
+        margin: 0 auto;
+      }
+      table {
+          border-collapse: collapse;
+          width: 100%;
+          margin-top: 40px;
+          font-size: 1.2rem;
+      }
+      th, td {
+          text-align: left;
+          padding: 12px;
+          border-bottom: 1px solid #ddd;
+          text-align: center;
+      }
+      th {
+          background-color: #005CA9;
+          color: #fff;
+      }
+      tr:hover {
+          background-color: #f5f5f5;
+      }
+    </style>
+  </head>
+
+  <body>
+    <ul>
+      <li><a href="{{ url_for('welcome') }}">Home</a></li>
+      <li><a href="{{ url_for('search') }}">Listings</a></li>
+      <li><a href="{{ url_for('my_bids') }}">My Bids</a></li>
+      <li><a href="{{ url_for('myaccount') }}">My Account</a></li>
+      <li style="float:right"><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+
+      <h2>Active Bids</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Seller email</th>
+          <th>Category</th>
+          <th>Product name</th>
+          <th>Bid Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for bid in active_bids %}
+        <tr>
+          <td>{{ bid[0] }}</td>
+          <td>{{ bid[1] }}</td>
+          <td>{{ bid[2] }}</td>
+          <td>{{ bid[3] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+  </body>
+</html>
+

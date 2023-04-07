@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lion Auction - Login Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F5F5F5;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 3rem;
+      color: #333333;
+    }
+    form {
+      width: 400px;
+      margin: 0 auto;
+      background-color: #FFFFFF;
+      padding: 40px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      font-size: 1.2rem;
+      color: #333333;
+      margin-bottom: 10px;
+    }
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #CCCCCC;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+    input[type="submit"] {
+      background-color: #333333;
+      color: #FFFFFF;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    input[type="submit"]:hover {
+      background-color: #005CA9;
+    }
+    p {
+      color: #FF4136;
+      text-align: center;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #CCCCCC;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lion Auction - Login</h1>
+  {% if error %}
+    <p>{{ error }}</p>
+  {% endif %}
+  <form method="post" action="/">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <input type="submit" value="Login">
+  </form>
+</body>
+</html>

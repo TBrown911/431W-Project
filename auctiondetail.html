@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <title>Auction Details</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #F5F5F5;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 3rem;
+      color: #333333;
+    }
+    h2 {
+      font-size: 3rem;
+      margin-top: 30px;
+      margin-bottom: 10px;
+      color: #333333;
+      text-align: center;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #333333;
+    }
+    ul {
+      list-style-type: none;
+      margin: 7px;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333333;
+    }
+    li {
+      float: left;
+    }
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+    li a:hover {
+      background-color: #005CA9;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+      vertical-align: top;
+      border-bottom: 1px solid #ddd;
+      width: 50%;
+    }
+    th {
+      background-color: #f2f2f2;
+      text-align: left;
+    }
+    form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+    label {
+      margin-right: 20px;
+    }
+    input[type="number"] {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+      text-align: center;
+    }
+    button, button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      margin-left: 10px;
+    }
+    button[type="submit"]:hover {
+      background-color: #0069d9;
+    }
+    button.place-bid {
+      padding: 10px 10px;
+    }
+    .stars-outer {
+      display: inline-block;
+      position: relative;
+      font-size: 1.1rem;
+    }
+    .stars-outer::before {
+      content: "\f005 \f005 \f005 \f005 \f005";
+      font-family: FontAwesome;
+      letter-spacing: 1px;
+      color: #ccc;
+    }
+    .stars-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+    }
+    .stars-inner::before {
+      content: "\f005 \f005 \f005 \f005 \f005";
+      font-family: FontAwesome;
+      letter-spacing: 1px;
+      color: gold;
+    }
+  </style>
+</head>
+
+  <body>
+    <ul>
+    <li><a href="{{ url_for('welcome') }}">Home</a></li>
+    <li><a href="{{ url_for('search') }}">Listings</a></li>
+    <li><a href="{{ url_for('my_bids') }}">My Bids</a></li>
+    <li><a href="{{ url_for('myaccount') }}">My Account</a></li>
+    <li style="float:right"><a href="{{ url_for('logout') }}">Logout</a></li>
+  </ul>
+
+    <div class="container">
+      <h1>Auction Details</h1>
+      <table id="my-table">
+        <table>
+          <tr>
+            <th>Seller Email</th>
+            <td>{{ auction_listing[0] }}</td>
+          </tr>
+          <tr>
+            <th>Seller Rating</th>
+            <td>
+            {% if auction_listing[10] %}
+                <div class="stars-outer">
+                  <div class="stars-inner" style="width: {{ auction_listing[10] * 20 }}%;">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+            {% else %}
+            N/A
+            {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <th>Category</th>
+            <td>{{ auction_listing[2] }}</td>
+          </tr>
+          <tr>
+            <th>Auction Title</th>
+            <td>{{ auction_listing[3] }}</td>
+          </tr>
+          <tr>
+            <th>Product Name</th>
+            <td>{{ auction_listing[4] }}</td>
+          </tr>
+          <tr>
+            <th>Product Description</th>
+            <td>{{ auction_listing[5] }}</td>
+          </tr>
+          <tr>
+            <th>Quantity</th>
+            <td>{{ auction_listing[6] }}</td>
+          </tr>
+          <tr>
+            <th>Reserve Price</th>
+            <td>{{ auction_listing[7] }}</td>
+          </tr>
+          <tr>
+            <th>Status</th>
+            <td>
+              {% if auction_listing[9] == 1 %}
+              Active
+              {% elif auction_listing[9] == 0 %}
+              Inactive
+              {% elif auction_listing[9] == 2 %}
+              Sold
+              {% endif %}
+            </td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <th>Remaining Bids</th>
+            <td>{{ auction_listing[12] }}</td>
+          </tr>
+        </table>
+
+        <table>
+          <tr>
+            <th>Current Highest Bid</th>
+            <td>{{ auction_listing[11] }}</td>
+          </tr>
+        </table>
+      </table>
+
+      <form method="post" action="/place_bid">
+        <input type="hidden" name="listing_id" value="{{ auction_listing[1] }}">
+        <input type="hidden" name="seller_email" value="{{ auction_listing[0] }}">
+        <input type="hidden" name="bidder_email" value="{{ session['email'] }}">
+        <label for="bid_amount">Bid Amount:</label>
+        <input type="number" step="1" name="bid_amount" id="bid_amount" required>
+        <input type="hidden" name="remaining_bids" value="{{ auction_listing[12] }}">
+        <button type="submit" id="place-bid-button">Place Bid</button>
+        <button type="button" onclick="history.back()">Back</button>
+      </form>
+
+      <script>
+      // Wait for the DOM to finish loading
+      $(function() {
+        // Attach a click event listener to the "Place Bid" button
+        $('#place-bid-button').click(function() {
+          // Make an AJAX request to update the table data
+          $.ajax({
+            url: '/auction_detail',
+            method: 'GET', // or 'POST' if you need to send data to the server
+            success: function(data) {
+              // Update the table contents with the new data
+              $('#my-table').html(data);
+            },
+            error: function(xhr, status, error) {
+              // Handle the error
+              console.error(error);
+            }
+          });
+        });
+      })
+      </script>
+
+    </div>
+  </body>
+</html>
+

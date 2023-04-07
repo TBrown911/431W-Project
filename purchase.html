@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Congratulations!</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #F5F5F5;
+      }
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 3rem;
+        color: #333333;
+      }
+      h2 {
+        font-size: 2rem;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        color: #333333;
+      }
+      p {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        color: #333333;
+      }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333333;
+      }
+      li {
+        float: left;
+      }
+      li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      li a:hover {
+        background-color: #005CA9;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 50px;
+        text-align: center;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+      }
+      .title {
+        font-size: 36px;
+        font-weight: bold;
+        color: #333;
+      }
+      .description {
+        font-size: 24px;
+        color: #666;
+        margin-bottom: 50px;
+      }
+
+      .thank-you {
+        font-size: 24px;
+        font-weight: bold;
+        color: #6ab04c;
+        margin-top: 50px;
+      }
+      .credit-card-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+      }
+      label {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+        text-align: left;
+        width: 100%;
+      }
+      select, input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+      button, .submit-button {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #6ab04c;
+        cursor: pointer;
+      }
+      .submit-button:hover {
+        background-color: #5b9e41;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <ul>
+        <li><a href="{{ url_for('welcome') }}">Home</a></li>
+        <li><a href="{{ url_for('search') }}">Listings</a></li>
+        <li><a href="{{ url_for('my_bids') }}">My Bids</a></li>
+        <li><a href="{{ url_for('myaccount') }}">My Account</a></li>
+        <li style="float:right"><a href="{{ url_for('logout') }}">Logout</a></li>
+      </ul>
+    </header>
+    <div class="container">
+      <h1 class="title">Congratulations!</h1>
+      <p class="description">You have successfully won the bid for the item: "{{auction_listings[0]}}".</p>
+      <p class="thank-you">Please enter your payment information to purchase.</p>
+
+      <form class="credit-card-form" action="/purchase" method="post">
+        <label for="card-type">Card Type</label>
+        <select id="card-type" name="card-type" required>
+          <option value="" disabled selected>Select card type</option>
+          <option value="Visa">Visa</option>
+          <option value="Master">Mastercard</option>
+          <option value="American Express">American Express</option>
+          <option value="Discover">Discover</option>
+        </select>
+
+        <label for="card-number">Credit Card Number</label>
+        <input type="text" id="card-number" name="card-number" placeholder="xxxx-xxxx-xxxx-xxxx" required>
+        <label for="expiry-date">Expiry Date</label>
+        <input type="text" id="expiry-date" name="expiry-date" placeholder="mm/yyyy" required>
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" name="cvv" placeholder="xxx" required>
+        <input type="hidden" name="bidder_email" value="{{ session['email'] }}">
+        <input type="hidden" name="price" value="{{ auction_listings[2] }}">
+        <input type="hidden" name="listing-id" value="{{ auction_listings[1] }}">
+        <input type="hidden" name="seller-email" value="{{ auction_listings[3] }}">
+        <input type="hidden" name="bid-id" value="{{ auction_listings[4] }}">
+        <input type="submit" class="submit-button" value="Submit">
+
+      </form>
+
+    </div>
+  </body>
+
+</html>
